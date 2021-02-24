@@ -1,11 +1,12 @@
 import React from "react";
+import "../Components/search.css"
 
 const SearchBar = (props) => {
 
   return (
     <form>
     <div className="form-group search-widget">
-      <div className="input-group mb-3">
+      <div className="input-group">
   
         <input
           onChange={props.handleInputChange}

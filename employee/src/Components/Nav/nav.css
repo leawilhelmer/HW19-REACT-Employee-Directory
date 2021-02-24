@@ -1,11 +1,11 @@
 nav {
-    background-color: grey;
-    height: 60px;
+    background-color: yellowgreen;
+    height: 80px;
     margin-bottom: 20px;
 }
 
 .navbar-brand {
     float: middle;
     text-align: center;
-    font-size: 40px;
+    font-size: 50px;
 }

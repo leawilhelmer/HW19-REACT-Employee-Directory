@@ -1,6 +1,7 @@
 import React from "react";
-import API from "../Utils/Api"
-import Search from "../Components/Search"
+import API from "../Utils/Api";
+import Search from "../Components/Search";
+import "../Components/table.css";
 
 class Table extends React.Component {
 
@@ -41,11 +42,11 @@ class Table extends React.Component {
         <table className="table table-striped table-resposive text-center table-hover">
             <thead>
               <tr>
-                <th>Image</th>
-                <th>First Name <span className="downArrow" onClick={this.sortByFName}></span></th>
-                <th>Last Name <span className="downArrow" onClick={this.sortByLName}></span></th>
-                <th>Phone Number</th>
-                <th>Email</th>
+                <th>Image <span className="col-md-6" ></span></th>
+                <th>First Name <span className="col-md-6" ></span></th>
+                <th>Last Name <span className="col-md-6"></span></th>
+                <th>Phone Number <span className="col-md-6" ></span></th>
+                <th>Email <span className="col-md-6" ></span></th>
               </tr>
             </thead>
 
