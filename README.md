@@ -12,16 +12,6 @@ For this assignment, you'll create a employee directory with React. This assignm
 
 An employee or manager would benefit greatly from being able to view non-sensitive data about other employees. It would be particularly helpful to be able to filter employees by name.
 
-<<<<<<< HEAD
-
-## Submission on BCS
-
-You are required to submit the following:
-
-* the URL to the deployed application
-
-* the URL to the Github repository
-=======
 ## Screenshots
 
 ![Screenshot (78)](https://user-images.githubusercontent.com/70493940/108951714-5eb54800-761d-11eb-8446-15247e69e77c.png)
@@ -29,4 +19,4 @@ You are required to submit the following:
 
 ## Heroku Link
 
->>>>>>> b7d5b884dd11170783f38949164e94a1804c8d9a
+https://homew19-employee-directory.herokuapp.com/
