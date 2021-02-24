@@ -44,9 +44,8 @@ class Table extends React.Component {
                 <th>Image</th>
                 <th>First Name <span className="downArrow" onClick={this.sortByFName}></span></th>
                 <th>Last Name <span className="downArrow" onClick={this.sortByLName}></span></th>
-                <th>Phone</th>
+                <th>Phone Number</th>
                 <th>Email</th>
-                <th>DOB </th>
               </tr>
             </thead>
 
@@ -60,7 +59,6 @@ class Table extends React.Component {
                       <td >{item.name.last}</td>
                       <td >{item.phone}</td>
                       <td >{item.email}</td>
-                      {/* <td>{DateFormat(item.dob.date, "mediumDate")}</td>   */}
                     </tr>
                   </tbody>
 
@@ -74,7 +72,6 @@ class Table extends React.Component {
                         <td >{item.name.last}</td>
                         <td >{item.phone} </td>
                         <td >{item.email}</td>
-                        {/* <td>{DateFormat(item.dob.date, "mediumDate")}</td>   */}
                       </tr>
                     </tbody>
                     :

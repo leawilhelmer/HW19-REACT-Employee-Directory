@@ -13,7 +13,7 @@ const SearchBar = (props) => {
           name="search"
           type="text"
           className="form-control"
-          placeholder='Search directory for Employee'
+          placeholder='Search for Employee'
           id="search"
         />
       </div>
