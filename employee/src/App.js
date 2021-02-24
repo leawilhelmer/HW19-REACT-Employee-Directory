@@ -1,7 +1,4 @@
-  
-import React, { useEffect, useState } from "react";
 import Table from "./Components/Table";
-import { getUsers } from "./Utils/Api";
 import "./App.css";
 import Navbar from "./Components/Nav/Nav";
 

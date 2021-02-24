@@ -29,44 +29,6 @@ class Table extends React.Component {
     }
   }
 
-  sortByFName = () => {
-    const sortedEmployees = this.state.results.sort((a, b) => {
-      if (b.name.first > a.name.first) {
-        return -1
-      }
-      if (a.name.first > b.name.first) {
-        return 1
-      }
-      return 0;
-    });
-
-    if (this.state.sortOrder === "DESC") {
-      sortedEmployees.reverse();
-      this.setState({ sortOrder: "ASC" });
-    } else {
-      this.setState({ sortOrder: "DESC" });
-    }
-    this.setState({ results: sortedEmployees })
-  }
-
-  sortByLName = () => {
-    const sortedEmployees = this.state.results.sort((a, b) => {
-      if (b.name.last > a.name.last) {
-        return -1
-      }
-      if (a.name.last > b.name.last) {
-        return 1
-      }
-      return 0;
-    });
-    if (this.state.sortOrder === "DESC") {
-      sortedEmployees.reverse();
-      this.setState({ sortOrder: "ASC" });
-    } else {
-      this.setState({ sortOrder: "DESC" });
-    }
-    this.setState({ results: sortedEmployees })
-  }
 
   //Render items 
   render() {
