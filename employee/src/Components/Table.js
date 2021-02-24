@@ -1,86 +1,128 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import API from "../Utils/Api"
+import Search from "../Components/Search"
 
-const Table = ({ users }) => {
-  const [sortedUsers, updateSortedUsers] = useState([]);
+class Table extends React.Component {
 
-  useEffect(() => updateSortedUsers(users), [users]);
+  state = {
+    sortOrder: "",
+    results: [],
+    search: ""
+  }
 
-  return (
-    <div>
-      <table className="table">
-        <thead>
-          <tr>
-            <th scope="col">title</th>
-            <th
-              scope="col"
-              onClick={() => {
-                const usersCopy = [...users];
-                const updateSort = usersCopy.sort((a, b) => {
-                  const nameA = a.name.first;
-                  const nameB = b.name.first;
+  componentDidMount() {
+    API.ApiSearch()
+      .then(res => {
+        this.setState({ results: res.data.results })
+        console.log(this.state.results)
+      }).catch(err => console.log(err))
+  }
 
-                  if (nameA < nameB) {
-                    return -1;
-                  }
-                  if (nameA > nameB) {
-                    return 1;
-                  }
 
-                  return 0;
-                });
+  handleInputChange = event => {
 
-                updateSortedUsers(updateSort);
-              }}
-            >
-              First
-            </th>
-            <th scope="col">Last</th>
-            <th scope="col">gender</th>
-            <th scope="col">email</th>
-            <th scope="col">phone</th>
-            <th scope="col">cell</th>
-            <th scope="col">city</th>
-            <th scope="col">state</th>
-            <th scope="col">country</th>
-            <th scope="col">postcode</th>
-            <th scope="col">picture</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sortedUsers.map(
-            ({
-              location: { city, state, country, postcode },
-              picture: { thumbnail },
-              cell,
-              phone,
-              gender,
-              email,
-              name: { first, last, title }
-            }) => (
-              <tr key={email}>
-                <td>{title}</td>
-                <th>{first}</th>
-                <td>{last}</td>
-                <td>{gender}</td>
-                <td>{email}</td>
-                <td>{phone}</td>
-                <td>{cell}</td>
-                <td>{city}</td>
-                <td>{state}</td>
-                <td>{country}</td>
-                <td>{postcode}</td>
-                <td>
-                  <img src={thumbnail} />
-                </td>
+    if (event.target.name === "search") {
+      const searchTerm = event.target.value.toLowerCase();
+      this.setState({
+        search: searchTerm
+      })
+    }
+  }
 
-                <td></td>
+  sortByFName = () => {
+    const sortedEmployees = this.state.results.sort((a, b) => {
+      if (b.name.first > a.name.first) {
+        return -1
+      }
+      if (a.name.first > b.name.first) {
+        return 1
+      }
+      return 0;
+    });
+
+    if (this.state.sortOrder === "DESC") {
+      sortedEmployees.reverse();
+      this.setState({ sortOrder: "ASC" });
+    } else {
+      this.setState({ sortOrder: "DESC" });
+    }
+    this.setState({ results: sortedEmployees })
+  }
+
+  sortByLName = () => {
+    const sortedEmployees = this.state.results.sort((a, b) => {
+      if (b.name.last > a.name.last) {
+        return -1
+      }
+      if (a.name.last > b.name.last) {
+        return 1
+      }
+      return 0;
+    });
+    if (this.state.sortOrder === "DESC") {
+      sortedEmployees.reverse();
+      this.setState({ sortOrder: "ASC" });
+    } else {
+      this.setState({ sortOrder: "DESC" });
+    }
+    this.setState({ results: sortedEmployees })
+  }
+
+  //Render items 
+  render() {
+    return (
+      <div>
+        <Search handleInputChange={this.handleInputChange}
+          search={this.state.search} />
+
+        <div className="table-responsive">
+        <table className="table table-striped table-resposive text-center table-hover">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>First Name <span className="downArrow" onClick={this.sortByFName}></span></th>
+                <th>Last Name <span className="downArrow" onClick={this.sortByLName}></span></th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>DOB </th>
               </tr>
-            )
-          )}
-        </tbody>
-      </table>
-    </div>
-  );
-};
+            </thead>
+
+            { //First Name sort
+              this.state.results && this.state.results.map(item =>
+                item.name.first.toLowerCase().includes(this.state.search) ?
+                  <tbody key={item.login.uuid}>
+                    <tr>
+                      <td ><img src={item.picture.thumbnail} className="rounded-circle" alt="thumbnail" /></td>
+                      <td >{item.name.first}</td>
+                      <td >{item.name.last}</td>
+                      <td >{item.phone}</td>
+                      <td >{item.email}</td>
+                      {/* <td>{DateFormat(item.dob.date, "mediumDate")}</td>   */}
+                    </tr>
+                  </tbody>
+
+                  :
+                  //Last Name sort
+                  item.name.last.toLowerCase().includes(this.state.search) ?
+                    <tbody key={item.login.uuid}>
+                      <tr>
+                      <td ><img src={item.picture.thumbnail} className="rounded-circle" alt="thumbnail" /></td>
+                        <td >{item.name.first}</td>
+                        <td >{item.name.last}</td>
+                        <td >{item.phone} </td>
+                        <td >{item.email}</td>
+                        {/* <td>{DateFormat(item.dob.date, "mediumDate")}</td>   */}
+                      </tr>
+                    </tbody>
+                    :
+                    null
+              )}
+          </table>
+        </div>
+      </div>
+    )
+  }
+}
 
 export default Table;
